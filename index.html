@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="quest">
+<head>
+
+  <meta charset="utf-8">
+
+  <title>Questionnaire</title>
+  <!--A FAIRE : utiliser un chargeur asychrone d'extensions : http://blog.octo.com/charger-des-fichiers-javascript-de-facon-performante/-->
+  <script src="js/myExtensions.js"></script>
+  <link rel="stylesheet" href="jsDependancies/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js">
+  <script src="jsDependancies/jquery-2.0.3.js"></script>
+  <script
+      src="jsDependancies/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
+  <script src="jsDependancies/angular.js"></script>
+  <script src="js/dnd.js"></script>
+  <!--  <script src="jsDependancies/angular-dragdrop.js"></script>-->
+  <script src="jsDependancies/pouchdb-nightly.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/questServices.js"></script>
+  <!--  <link rel="stylesheet" href="cssDependancies/bootstrap.min.css">-->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+<div id="list" ng-controller="ListCtrl" class="page">
+  <ul id="list-menu" class="list-menu">
+    <li ng-repeat="menuButton in menu">
+      <div class="menu-button" jps-draggable="true"
+           jps-drag-options="{helper:'clone',revert:'invalid',refreshPositions:true}">{{menuButton
+        }}</div>
+    </li>
+  </ul>
+
+  <a href="" ng-click="reset()">Reset</a>
+<!--  <div id="test">x : {{xoffset}} y : {{yoffset}}</div>-->
+  <ul id="list-items">
+    <li ng-repeat="item in items">
+      <div class="item-box"
+           jps-drop-options="{accept:'.menu-button',tolerance:'pointer'}"
+           jps-cube-insert="10px">
+        <br><br>
+        <button class="insertButton" ng-click="insertItem(item.order)">» </button>
+        <button class="insertButton" ng-click="insertItem(item.order)">» </button>
+        <span class="item-level">{{item.level}}</span>
+        <span ng-dblclick="editItem">{{item.title}}</span></div>
+    </li>
+  </ul>
+
+<form ng-submit="addItem()" class="input_Item">
+  <input type="number" ng-model="newItemLevel" min="1" max="9">
+  <input type="text" ng-model="newItemContent" size="30"
+         placeholder="Ajouter un item">
+  <input class="btn" type="submit" value="Ajouter">
+  <br>
+  <div class="item-box">
+    <span>{{newItemLevel}}</span>
+    <span>{{newItemContent}}</span>
+  </div>
+</form>
+</div>
+
+
+</body>
+</html>
